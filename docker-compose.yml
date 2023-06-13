@@ -1,0 +1,23 @@
+version: "3.1"
+
+services:
+  aurora:
+    image: aurora:latest
+    build: ./aurora/
+    restart: always
+    ports:
+      - "3000:3000"
+    networks:
+      - mq-network
+
+  beanstalkd:
+    image: schickling/beanstalkd
+    restart: always
+    ports:
+      - "11300:11300"
+    networks:
+      - mq-network
+
+networks:
+  mq-network:
+    driver: bridge
